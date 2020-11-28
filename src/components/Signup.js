@@ -3,15 +3,13 @@ import {LoginContext} from '../contexts/LoginContext'
 
 function Signup() {
 
-    const {setLogged} = useContext(LoginContext)
-
-    const [user, setUser] = useState("")
+    const {setLogged, username, setUsername} = useContext(LoginContext)
     const [pass, setPass] = useState("")
     const [conf, setConf] = useState("")
     const [email, setEmail] = useState("")
 
     function ChangeUse (event) {
-        setUser(event.target.value)
+        setUsername(event.target.value)
     }
 
     function ChangePass (event) {
@@ -29,13 +27,16 @@ function Signup() {
     function Validation (event) {
 
         // Check if all relevant fields are filled
-        if (user === "" || pass === "" || conf === "" || email === "") {
+        if (username === "" || pass === "" || conf === "" || email === "") {
             alert("Please ensure that you've filled all relevant fields!")
         } else {
 
             // Check if password is equal to confirmation
             pass === conf ? 
+            <>
+            event.preventDefault()
             setLogged(true)
+            </>    
             : 
             alert("Password should be the same as confirmation")
         }
@@ -60,7 +61,7 @@ function Signup() {
                     </div>
                     <div className="form-group col-md-6">
                         <label>Username</label>
-                        <input type="text" className="form-control" onChange={ChangeUse} value={user} required/>
+                        <input type="text" className="form-control" onChange={ChangeUse} value={username} required/>
                     </div>
                     <div className="form-group col-md-6">
                         <label>Email</label>

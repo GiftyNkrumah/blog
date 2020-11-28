@@ -1,14 +1,28 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import { LoginContext } from '../contexts/LoginContext'
 
 function Add_post() {
     
-    const [post, setPost] = useState({title: "", body: ""})
+    const {username} = useContext(LoginContext)
+    const [post, setPost] = useState({title: "", body: "", author: username})
     const [list, setList] = useState([])
+    
+    let postStorage = window.localStorage
 
     function SavePost(event) {
         event.preventDefault()
-        setList([...list, post]);
+        // postStorage.setItem(entry, post)
+        // postStorage.setItem("body", post.body)
+        // console.log(postStorage)
+        setList([...list, post])
+        postStorage.setItem("blogs", JSON.stringify(list));
+        console.log(postStorage)
+        console.log(list)
+        
+        // var posts = JSON.parse(localStorage.getItem("blogs"));
     }
+
+    // postStorage.clear()
 
     return (
         <div className="container border reg">
@@ -34,13 +48,14 @@ function Add_post() {
                         required
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Upload article</button>
+                <button type="submit" className="btn btn-light">Upload article</button>
             </form>
             <div>
             {
                 list.map((item) => (
                     <div>
                         <h3 className="upper">{item.title}</h3>
+                        <p>{username}</p>
                         <p>{item.body}</p>
                         <hr/>
                     </div>

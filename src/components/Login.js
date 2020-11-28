@@ -7,8 +7,7 @@ import {LoginContext} from '../contexts/LoginContext'
 
 function Login() {
     
-    const {setLogged} = useContext(LoginContext)
-    const [username, setUsername] = useState("")
+    const {setLogged, username, setUsername} = useContext(LoginContext)
     const [password, setPassword] = useState("")
 
     function ChangeStateUsername (event) {
@@ -33,7 +32,12 @@ function Login() {
         } else {
 
             // Check if username is equal to password
-            username === password? setLogged(true) : alert("Username or password incorrect!")
+            if (username === password) {
+                event.preventDefault()
+                setLogged(true) 
+            } else {
+                alert("Username or password incorrect!")
+            }
         }
     }
 
