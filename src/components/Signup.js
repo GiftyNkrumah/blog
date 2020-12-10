@@ -34,8 +34,8 @@ function Signup() {
             // Check if password is equal to confirmation
             pass === conf ? 
             <>
-            event.preventDefault()
-            setLogged(true)
+                event.preventDefault()
+                setLogged(true)
             </>    
             : 
             alert("Password should be the same as confirmation")
