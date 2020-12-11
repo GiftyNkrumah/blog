@@ -1,5 +1,7 @@
 import React, {useState, useContext} from 'react'
 import {LoginContext} from '../contexts/LoginContext'
+import {useHistory} from 'react-router-dom'
+import axios from 'axios'
 
 function Signup() {
 
@@ -7,6 +9,8 @@ function Signup() {
     const [pass, setPass] = useState("")
     const [conf, setConf] = useState("")
     const [email, setEmail] = useState("")
+
+    let history = useHistory()
 
     function ChangeUse (event) {
         setUsername(event.target.value)
@@ -32,13 +36,13 @@ function Signup() {
         } else {
 
             // Check if password is equal to confirmation
-            pass === conf ? 
-            <>
+            if (pass === conf) {
                 event.preventDefault()
                 setLogged(true)
-            </>    
-            : 
-            alert("Password should be the same as confirmation")
+                history.push("/")
+            } else {
+                alert("Password should be the same as confirmation")
+            }
         }
     }
 

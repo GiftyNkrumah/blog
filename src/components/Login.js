@@ -1,14 +1,17 @@
 import React, {useState, useContext} from 'react'
 import img from '../images/reception.png'
+import axios from 'axios';
 // import fb from '../images/fb.png'
 // import google from '../images/google.png'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {LoginContext} from '../contexts/LoginContext'
 
 function Login() {
     
     const {setLogged, username, setUsername} = useContext(LoginContext)
     const [password, setPassword] = useState("")
+
+    let history = useHistory()
 
     function ChangeStateUsername (event) {
         
@@ -20,6 +23,19 @@ function Login() {
 
         // Extract text in input field and set password
         setPassword(event.target.value)
+    }
+
+    function login () {
+        if (username === "" || password === "") {
+
+            alert("Both fields must be filled!")
+
+        } else {
+            axios.post("/api/user/new", {username, password})
+            .then(response=> {
+               
+            })
+        }
     }
 
     function FormValidation (event) {
@@ -35,6 +51,7 @@ function Login() {
             if (username === password) {
                 event.preventDefault()
                 setLogged(true) 
+                history.push("/")
             } else {
                 alert("Username or password incorrect!")
             }

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Link, useHistory} from 'react-router-dom'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Home from './components/Home'
@@ -13,9 +13,11 @@ import About from './components/About'
 function Bluestrokes() {
 
   const {isLogged, username, setLogged} = useContext(LoginContext)
+  let history = useHistory()
 
-  function LogOut(event){
+  function LogOut(){
     setLogged(false)
+    history.push("/")
   }
 
   return (
